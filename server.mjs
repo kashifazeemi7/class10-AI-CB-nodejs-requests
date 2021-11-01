@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 // date config:
 const timeElapsed = Date.now();
 
-let users = [];
+let members = [];
 app.use(express);
 app.use(express.json())
 app.use(morgan('short'));
@@ -14,6 +14,20 @@ app.use((req, res, next) => {
 
     console.log("a request came", req.body);
     next()
+  })
+
+  app.get('/members', (req, res) => {
+    res.send(users)
+  })
+
+  app.get('/user/:id', (req, res) => {
+
+    if (users[req.params.id]) {
+      res.send(users[req.params.id])
+    } else {
+      res.send("user not found");
+    }
+  
   })
   
 
